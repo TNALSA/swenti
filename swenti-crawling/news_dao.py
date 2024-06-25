@@ -8,6 +8,7 @@ PASSWORD = 'als1tn2!@'
 DB = 'swenti'
 CHARSET = 'utf8'
 
+
 def con_db():
     return pymysql.connect(host=HOSTNAME, user=USER, password=PASSWORD, db=DB, charset=CHARSET)
 
@@ -31,6 +32,7 @@ def insert_article(title, publisher, link, image, site):
     try:
         conn = con_db()
         cur = conn.cursor()
+        # 중복된 기사 확인
         isDuplicated = check_duplicate_article(title, publisher)
         print(isDuplicated)
         if isDuplicated > 0:

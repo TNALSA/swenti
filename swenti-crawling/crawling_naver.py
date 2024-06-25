@@ -25,14 +25,10 @@ for news in news_list:
     else:
         image_url = "이미지가 존재하지 않습니다."
 
-    image_res = requests.get(str(image_url))
-    image_res.raise_for_status()
-
-
     print("기사 제목: "+title)
     print("링크: "+link)
     print("언론사: "+publisher)
     print("이미지: "+image_url)
     print("-----")
 
-    news_dao.insert_article(title=title, link=link, publisher=publisher, image=image_res.content, site="네이버")
+    news_dao.insert_article(title=title, link=link, publisher=publisher, image=image_url, site="네이버")
