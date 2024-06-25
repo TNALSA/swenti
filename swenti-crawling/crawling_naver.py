@@ -1,4 +1,6 @@
 from bs4 import BeautifulSoup
+
+import news_dao
 import requests
 url = "https://news.naver.com/section/105"
 headers = {
@@ -16,18 +18,21 @@ for news in news_list:
     title = news.find("div",attrs={"class" : "sa_text"}).find("a").get_text().strip()
     link = news.find("div",attrs={"class" : "sa_text"}).find("a")["href"]
     publisher = news.find("div",attrs={"class" : "sa_text"}).find("div",attrs={"class" : "sa_text_press"}).get_text().strip()
-    image_url = news.find("div", attrs={"class" : "sa_thumb_inner"}).find("img",attrs={"class" : "_LAZY_LOADING _LAZY_LOADING_INIT_HIDE"})["data-src"]
-    if image_url:
-        image_url = news.find("div", attrs={"class" : "sa_thumb_inner"}).find("img",attrs={"class" : "_LAZY_LOADING _LAZY_LOADING_INIT_HIDE"})["data-src"]
+    image = news.find("div", attrs={"class" : "sa_thumb_inner"}).find("img",attrs={"class" : "_LAZY_LOADING _LAZY_LOADING_INIT_HIDE"})
+
+    if image and "data-src" in image.attrs:
+        image_url = image["data-src"]
     else:
-        image_url = "이미지가 없습니다."
+        image_url = "이미지가 존재하지 않습니다."
+
+    image_res = requests.get(str(image_url))
+    image_res.raise_for_status()
+
 
     print("기사 제목: "+title)
     print("링크: "+link)
     print("언론사: "+publisher)
     print("이미지: "+image_url)
-    # image_res = requests.get(image_url)
-    # image_res.raise_for_status()
-    #
-    # with open("{}.jpg".format(title), "wb") as f:
-    #     f.write(image_res.content)
+    print("-----")
+
+    news_dao.insert_article(title=title, link=link, publisher=publisher, image=image_res.content, site="네이버")
