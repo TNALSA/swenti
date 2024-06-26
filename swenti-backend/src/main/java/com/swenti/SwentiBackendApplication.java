@@ -1,4 +1,4 @@
-package com.swenti.swentibackend;
+package com.swenti;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

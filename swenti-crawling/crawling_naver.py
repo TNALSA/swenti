@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-import news_dao
+import article_dao
 import requests
 url = "https://news.naver.com/section/105"
 headers = {
@@ -31,4 +31,4 @@ for news in news_list:
     print("이미지: "+image_url)
     print("-----")
 
-    news_dao.insert_article(title=title, link=link, publisher=publisher, image=image_url, site="네이버")
+    article_dao.insert_article(title=title, link=link, publisher=publisher, image=image_url, site="네이버")
