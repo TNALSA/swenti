@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Blob;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -22,18 +23,27 @@ public class Article {
     private String title;
 
     @Column(nullable = false)
-    private String publisher;
+    private String details;
+
+    @Column(nullable = false)
+    private String media;
 
     @Column(nullable = false)
     private String link;
 
     @Column(nullable = false)
-    private String image;
+    private String images;
 
     @Column(nullable = false)
     private String site;
 
     @Column(nullable = false)
-    private int views;
+    private int view;
+
+    @Column(nullable = false)
+    private String writer;
+
+    @Column(nullable = false)
+    private LocalDateTime writed_date;
 
 }

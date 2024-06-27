@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 
 //@Repository
 public interface ArticleJpaRepository extends JpaRepository<Article, Integer> {
+    @Query(value = "SELECT id, title, link, JSON_UNQUOTE(JSON_EXTRACT(images, '$.\"image 1\"')) as images, media FROM article", nativeQuery = true)
+    List<Article> LookupArticle();
 }
