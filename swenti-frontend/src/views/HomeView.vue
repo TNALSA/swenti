@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <H1>{ msg }</H1>
+  <div>
+    <H1>Home View입니다.</H1>
   </div>
 </template>
 
