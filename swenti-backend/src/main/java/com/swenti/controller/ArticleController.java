@@ -3,28 +3,41 @@ package com.swenti.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.swenti.controller.dto.ArticleResponseDto;
 import com.swenti.model.Article;
 import com.swenti.service.ArticleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class ArticleController {
     private final ArticleService articleService;
     // 기사 목록 출력
-    @GetMapping("/lookup/v1")
-    public String lookUpArticlesV1(Model model){
+//    @CrossOrigin(origins = "http://localhost:3000")
+//    @GetMapping("/lookup/v1")
+//    public ArticleResponseDto lookUpArticlesV1(){
+//        List<Article> articles = articleService.LookupArticleV1();
+//        for(Article a: articles){
+//            System.out.println(a.getTitle());
+//        }
+//        return new ArticleResponseDto(articles);
+//    }
+    //@CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(value = "/lookup/v1", produces = MediaType.APPLICATION_JSON_VALUE+";charset=UTF-8")
+    public List<Article> lookUpArticlesV1(){
         List<Article> articles = articleService.LookupArticleV1();
         for(Article a: articles){
             System.out.println(a.getTitle());
         }
-
-        model.addAttribute("articles",articles);
-        return "index.html";
+        return articles;
     }
+
 
     @GetMapping("/lookup/v2")
     public String lookUpArticlesV2(Model model){

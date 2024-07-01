@@ -17,7 +17,7 @@
       <div class="container">
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <Card v-for="Card in 9" :key="Card"/>
+          <Card v-for="article in articles" :key="article" :article="article" />
         </div>
       </div>
     </div>
@@ -27,12 +27,30 @@
 <script>
   import Card from "@/components/Card.vue";
   import axios from "axios";
+  import {useRouter} from "vue-router";
+  import {onMounted, ref} from "vue";
 
   export default {
     name: 'HomeView',
     components: {Card},
     setup(){
-      axios.get("/login/request")
+      const articles = ref([]);
+      const router = useRouter();
+
+      onMounted(() => {
+        axios.get("http://localhost:8080/lookup/v1").then(response => {
+
+          console.log(response.data);
+          articles.value = response.data;
+
+          router.push("/")
+        }).catch(error => {
+          console.error("[Error]",error)
+        });
+      });
+
+      return { articles };
+
     }
   }
 </script>
