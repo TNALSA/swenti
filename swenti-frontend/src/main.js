@@ -8,7 +8,12 @@ import ArticleView from "@/views/ArticleView.vue";
 const routes = [
     {path: '/', component: HomeView},
     {path: '/login', component: LoginView},
-    {path: '/article', component: ArticleView}
+    {
+        path: '/article',
+        name: 'Article',
+        component: ArticleView,
+        props: true
+    }
 ]
 
 const router = createRouter({
