@@ -1,15 +1,8 @@
 package com.swenti.controller;
 
-import com.swenti.controller.dto.UserRequestDto;
-import com.swenti.controller.dto.UserResponseDto;
-import com.swenti.repository.UserJpaRepository;
+import com.swenti.controller.dto.user.UserRequestDto;
 import com.swenti.service.UserService;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

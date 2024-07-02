@@ -10,7 +10,7 @@
           <div class="col-sm-4 offset-md-1 py-4">
             <h4>Other</h4>
             <ul class="list-unstyled">
-              <li><a href="#" class="text-white">Login</a></li>
+              <li><a href="/login" class="text-white">Login</a></li>
 <!--              <li><a class="text-white" type="button" aria-label="Toggle navigation">Language</a></li>-->
             </ul>
           </div>
@@ -19,7 +19,7 @@
     </div>
     <div class="navbar navbar-dark bg-dark shadow-sm">
       <div class="container">
-        <a href="#" class="navbar-brand d-flex align-items-center">
+        <a href="/" class="navbar-brand d-flex align-items-center">
           <strong>Swenti</strong>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">

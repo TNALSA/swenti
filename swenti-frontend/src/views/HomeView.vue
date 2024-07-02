@@ -40,7 +40,7 @@
       onMounted(() => {
         axios.get("http://localhost:8080/lookup/v1").then(response => {
 
-          console.log(response.data);
+          //console.log(response.data);
           articles.value = response.data;
 
           router.push("/")
@@ -50,7 +50,8 @@
       });
 
       return { articles };
-    }
+    },
+
   }
 </script>
 

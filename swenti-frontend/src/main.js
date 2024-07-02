@@ -1,15 +1,18 @@
 import {createApp} from 'vue'
 import App from './App.vue'
 import {createRouter, createWebHistory} from 'vue-router'
-import HomeView from "@/views/HomeView.vue";
+// import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
 import ArticleView from "@/views/ArticleView.vue";
 
 const routes = [
-    {path: '/', component: HomeView},
+    {
+        path: '/',
+        component: () => import('../src/views/HomeView.vue')
+    },
     {path: '/login', component: LoginView},
     {
-        path: '/article',
+        path: '/article/:articleId',
         name: 'Article',
         component: ArticleView,
         props: true
