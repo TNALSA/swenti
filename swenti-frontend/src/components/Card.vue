@@ -13,7 +13,7 @@
         </div>
         <div class="d-flex justify-content-between align-items-center">
           <small>{{ article.media }}</small>
-          <small class="text-body-secondary">{{ article.writed_date }}</small>
+          <small class="text-body-secondary">{{ formattedDate }}</small>
         </div>
       </div>
     </div>
@@ -30,12 +30,27 @@
     },
     data() {
       return {
-        localArticle: JSON.parse(JSON.stringify(this.article)) // 깊은 복사
+        localArticle: JSON.parse(JSON.stringify(this.article)), // 깊은 복사
+        formattedDate: ''
       };
     },
     mounted() {
       if (typeof this.localArticle.images === 'string') {
         this.localArticle.images = JSON.parse(this.article.images);
+        this.formattedDate = this.formatDate(this.article.writed_date)
+      }
+    },
+    methods: {
+      formatDate(dateString){
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // 월은 0부터 시작하므로 +1 필요
+        const day = date.getDate();
+        // const hours = date.getHours();
+        // const minutes = date.getMinutes();
+        // const seconds = date.getSeconds();
+
+        return `${year}년 ${month}월 ${day}일`;
       }
     }
 

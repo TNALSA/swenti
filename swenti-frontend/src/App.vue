@@ -17,18 +17,6 @@
   }
 </script>
 
-
-<!--<script>-->
-<!--import HelloWorld from './components/HelloWorld.vue'-->
-
-<!--export default {-->
-<!--  name: 'App',-->
-<!--  components: {-->
-<!--    HelloWorld-->
-<!--  }-->
-<!--}-->
-<!--</script>-->
-
 <style>
 .bd-placeholder-img {
   font-size: 1.125rem;

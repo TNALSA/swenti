@@ -6,16 +6,15 @@
       </div>
       <div class="article-meta">
         <small>{{ info.writer }}</small>
-        <small>{{ info.writed_date }}</small>
+        <small>{{ formattedDate }}</small>
       </div>
     </section>
-
     <section class="article-content">
+<!--      <img v-if="image['image1']" :src="image['image1']" alt="Article Image" height="225" width="100%"/>-->
       <p>{{ info.details }}</p>
     </section>
   </div>
 </template>
-
 <script>
 import axios from "axios";
 import { useRouter } from "vue-router";
@@ -31,7 +30,8 @@ export default {
   data() {
     return {
       cur_articleId: this.articleId,
-      info: {}
+      info: {}, // 객체 형태로 초기화
+      formattedDate: '', // String 형태로 초기화
     };
   },
   mounted() {
@@ -42,10 +42,24 @@ export default {
     axios.get(`http://localhost:8080/lookup/details/${cur_articleId}`).then(response => {
       console.log("응답받은 데이터: ", response.data);
       this.info = response.data.article;
+      this.formattedDate = this.formatDate(this.info.writed_date);
       router.push(`/article/${cur_articleId}`);
     }).catch(error => {
       console.error("[Error]", error);
     });
+  },
+  methods: {
+    formatDate(dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1; // 월은 0부터 시작하므로 +1 필요
+      const day = date.getDate();
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const seconds = date.getSeconds();
+
+      return `${year}년 ${month}월 ${day}일 ${hours}시 ${minutes}분 ${seconds}초`;
+    }
   }
 }
 </script>
