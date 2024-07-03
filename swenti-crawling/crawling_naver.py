@@ -46,7 +46,7 @@ def crawledPages():
             else:
                 continue
 
-        image_dict = {f"image {i+1}": value for i, value in enumerate(image_url)}
+        image_dict = {f"image{i+1}": value for i, value in enumerate(image_url)}
         json_data = json.dumps(image_dict, indent=4)
 
         print("기사 제목: "+title)

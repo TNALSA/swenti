@@ -1,13 +1,9 @@
 package com.swenti.service;
 
-import com.swenti.controller.dto.UserRequestDto;
-import com.swenti.model.User;
-import com.swenti.repository.ArticleJpaRepository;
+import com.swenti.controller.dto.user.UserRequestDto;
 import com.swenti.repository.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service

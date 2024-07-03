@@ -1,15 +1,19 @@
 <template>
   <div class="col">
     <div class="card shadow-sm">
-      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+      <img v-if="localArticle.images['image1']" :src="localArticle.images['image1']" alt="Article Image" height="225" width="100%"/>
+      <img v-else src="https://img.atom.com/story_images/visual_images/14091507-01.jpg?class=show"/>
       <div class="card-body">
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <div class="article-title">
+          <router-link  :to="{ name: 'Article', params: { articleId: article.id}}" style="color: #42b983; font-weight: bold">
+            <a>{{ article.title }}</a>
+          </router-link>
+<!--          <a @click="$router.push({name:'Article', params: {article:localArticle}})">{{ article.title }}</a>-->
+<!--          <router-link :to= "{ name: 'Article', params: { id:  3 }}" style="color: #42b983; font-weight: bold">{{ article.title }}</router-link>-->
+        </div>
         <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-          </div>
-          <small class="text-body-secondary">9 mins</small>
+          <small>{{ article.media }}</small>
+          <small class="text-body-secondary">{{ formattedDate }}</small>
         </div>
       </div>
     </div>
@@ -17,6 +21,38 @@
 </template>
 <script>
   export default {
-    name: 'Card'
+    name: 'Card',
+    props: {
+      article: {
+        type: Object,
+        required: true
+      }
+    },
+    data() {
+      return {
+        localArticle: JSON.parse(JSON.stringify(this.article)), // 깊은 복사
+        formattedDate: ''
+      };
+    },
+    mounted() {
+      if (typeof this.localArticle.images === 'string') {
+        this.localArticle.images = JSON.parse(this.article.images);
+        this.formattedDate = this.formatDate(this.article.writed_date)
+      }
+    },
+    methods: {
+      formatDate(dateString){
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // 월은 0부터 시작하므로 +1 필요
+        const day = date.getDate();
+        // const hours = date.getHours();
+        // const minutes = date.getMinutes();
+        // const seconds = date.getSeconds();
+
+        return `${year}년 ${month}월 ${day}일`;
+      }
+    }
+
   }
 </script>

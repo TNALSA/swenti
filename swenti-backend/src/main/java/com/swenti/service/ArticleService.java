@@ -23,8 +23,8 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<Article> LookupDetails(int id){
-        return articleJpaRepository.findById(id);
+    public Article LookupDetails(int articleId){
+        return articleJpaRepository.LookupDetails(articleId);
     }
 
 }
