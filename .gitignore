@@ -37,5 +37,6 @@ out/
 .vscode/
 
 ### node_modules
-/swenti-frontend/node_modules
+swenti-frontend/node_modules
+
 
