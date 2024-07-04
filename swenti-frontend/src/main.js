@@ -5,7 +5,10 @@ import {createRouter, createWebHistory} from 'vue-router'
 import LoginView from "@/views/LoginView.vue";
 import ArticleView from "@/views/ArticleView.vue";
 import HomeView from "@/views/HomeView.vue";
+<<<<<<< HEAD
 import store from "@/scripts/store";
+=======
+>>>>>>> c11cc9b28ecb1523fba6bf14d0fb32b861dce1e6
 
 const routes = [
     {

@@ -34,9 +34,18 @@
       const router = useRouter();
 
       onMounted(() => {
+<<<<<<< HEAD
         axios.get("http://localhost:8080/lookup/v2").then(response => {
           articles.value = response.data.articles;
           router.push("/");
+=======
+        axios.get("http://localhost:8080/lookup/v1").then(response => {
+
+          //console.log(response.data);
+          articles.value = response.data;
+
+          router.push("/")
+>>>>>>> c11cc9b28ecb1523fba6bf14d0fb32b861dce1e6
         }).catch(error => {
           console.error("[Error]",error)
         });
