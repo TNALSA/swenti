@@ -20,6 +20,8 @@
 import {reactive, ref} from "vue";
 import axios from "axios";
 import {useRouter} from "vue-router";
+import store from "@/scripts/store";
+
 
 export default {
   name: 'LoginView',
@@ -39,7 +41,7 @@ export default {
 
         const isSucceed = res.value.isSuccess;
         if(isSucceed){
-          window.alert(res.value.comment)
+          store.commit('setAccount',state.form.id);
           router.push("/")
         }else window.alert(res.value.comment);
       }).catch(error => {

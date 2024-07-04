@@ -2,6 +2,7 @@ package com.swenti.controller;
 
 import java.util.List;
 
+import com.swenti.controller.dto.article.ArticleListResponseDto;
 import com.swenti.controller.dto.article.ArticleResponseDto;
 import com.swenti.model.Article;
 import com.swenti.service.ArticleService;
@@ -16,17 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ArticleController {
     private final ArticleService articleService;
-    // 기사 목록 출력
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    @GetMapping("/lookup/v1")
-//    public ArticleResponseDto lookUpArticlesV1(){
-//        List<Article> articles = articleService.LookupArticleV1();
-//        for(Article a: articles){
-//            System.out.println(a.getTitle());
-//        }
-//        return new ArticleResponseDto(articles);
-//    }
-    //@CrossOrigin(origins = "http://localhost:3000")
+
     @GetMapping(value = "/lookup/v1", produces = MediaType.APPLICATION_JSON_VALUE+";charset=UTF-8")
     public List<Article> lookUpArticlesV1(){
         List<Article> articles = articleService.LookupArticleV1();
@@ -36,15 +27,14 @@ public class ArticleController {
         return articles;
     }
 
-
-    @GetMapping("/lookup/v2")
-    public String lookUpArticlesV2(Model model){
+    @GetMapping(value = "/lookup/v2", produces = MediaType.APPLICATION_JSON_VALUE+";charset=UTF-8")
+    public ArticleListResponseDto lookUpArticlesV2(){
         List<Article> articles = articleService.LookupArticleV2();
         for(Article a: articles){
             System.out.println(a.getTitle());
+            System.out.println(a.getWrited_date());
         }
-        model.addAttribute("articles",articles);
-        return "index.html";
+        return new ArticleListResponseDto(articles);
     }
 
     // 기사 상세보기

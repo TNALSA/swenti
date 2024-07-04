@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 //@Repository
 public interface ArticleJpaRepository extends JpaRepository<Article, Integer> {
-    @Query(value = "SELECT a.id, a.title, a.link, JSON_UNQUOTE(JSON_EXTRACT(a.images, '$.\"image 1\"')) as images, a.media FROM Article a", nativeQuery = true)
+    @Query("select a from Article a where date_format(a.writed_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')")
     List<Article> LookupArticle();
 
     @Query("SELECT a FROM Article a WHERE a.id = :id")

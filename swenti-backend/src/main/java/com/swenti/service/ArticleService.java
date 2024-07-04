@@ -18,6 +18,7 @@ public class ArticleService {
         return articleJpaRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Article> LookupArticleV2(){
         return articleJpaRepository.LookupArticle();
     }

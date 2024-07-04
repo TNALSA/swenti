@@ -5,6 +5,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import LoginView from "@/views/LoginView.vue";
 import ArticleView from "@/views/ArticleView.vue";
 import HomeView from "@/views/HomeView.vue";
+import store from "@/scripts/store";
 
 const routes = [
     {
@@ -25,6 +26,6 @@ const router = createRouter({
     routes
 })
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).use(store).mount('#app')
 
 

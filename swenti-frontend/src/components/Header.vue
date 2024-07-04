@@ -10,7 +10,10 @@
           <div class="col-sm-4 offset-md-1 py-4">
             <h4 style="color: white">Other</h4>
             <ul class="list-unstyled">
-              <li><a href="/login" class="text-white">Login</a></li>
+              <li>
+                <a href="/login" class="text-white" v-if="!$store.state.account.id">Login</a>
+                <p class="text-body-secondary" v-else>{{$store.state.account.id}}님 환영합니다.</p>
+              </li>
 <!--              <li><a class="text-white" type="button" aria-label="Toggle navigation">Language</a></li>-->
             </ul>
           </div>
