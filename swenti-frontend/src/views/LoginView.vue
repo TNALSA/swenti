@@ -42,7 +42,6 @@ export default {
         const isSucceed = res.value.isSuccess;
         if(isSucceed){
           store.commit('setAccount',state.form.id);
-          window.alert(res.value.comment)
           router.push("/")
         }else window.alert(res.value.comment);
       }).catch(error => {

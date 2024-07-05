@@ -29,20 +29,21 @@ def check_duplicate_article(title, writer):
         conn.close()
 
 def insert_article(title, details, link, media, writer, writed_date, image, site):
-    try:
-        print(writed_date)
-        conn = con_db()
-        cur = conn.cursor()
-        # 중복된 기사 확인
-        isDuplicated = check_duplicate_article(title, writer)
-        if isDuplicated > 0:
-            raise error.Error("중복된 기사가 존재 합니다.")
-        cur.execute("INSERT INTO article (title, details, link, media, images, writer, writed_date, site ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (title, details, link, media, image, writer, writed_date, site))
-        # 반영한 데이터 commit
-        conn.commit()
+    # try:
+    print(writed_date)
+    conn = con_db()
+    cur = conn.cursor()
+    # 중복된 기사 확인
+    isDuplicated = check_duplicate_article(title, writer)
+    if isDuplicated > 0:
+        raise error.Error("중복된 기사가 존재 합니다.")
+    cur.execute("INSERT INTO article (title, details, link, media, images, writer, writed_date, site ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (title, details, link, media, image, writer, writed_date, site))
+    # 반영한 데이터 commit
+    conn.commit()
+    conn.close()
     # db connection error 발생 시
-    except Exception as err:
-        print("[Error]" + str(err))
-    finally:
+    # except Exception as err:
+    #     print("[Error]" + str(err))
+    # finally:
         # connection 종료
-        conn.close()
+

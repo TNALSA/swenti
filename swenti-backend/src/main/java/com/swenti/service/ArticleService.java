@@ -24,6 +24,11 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
+    public List<Article> LookupArticleV3(String site){
+        return articleJpaRepository.LookupBySite(site);
+    }
+
+    @Transactional(readOnly = true)
     public Article LookupDetails(int articleId){
         return articleJpaRepository.LookupDetails(articleId);
     }

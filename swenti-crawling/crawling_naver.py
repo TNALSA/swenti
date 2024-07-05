@@ -38,7 +38,6 @@ def crawledPages():
                                     .find("span")["data-date-time"]
         details = article_soup.find("article").get_text().strip()
         images = article_soup.find("article").find_all("img")
-
         image_url = []
         for image in images:
             if image["data-src"]:
