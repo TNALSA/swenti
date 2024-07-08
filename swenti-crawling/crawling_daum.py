@@ -44,10 +44,10 @@ def crawledPages():
             title = article_soup.find("article",attrs={"class":"box_view"}).find("h3").get_text().strip()
 
             # 작성자
-            if len(article_soup.find("article",attrs={"class":"box_view"}).find("div",attrs={"class":"info_view"}).find_all("span")) >1:
+            if len(article_soup.find("article",attrs={"class":"box_view"}).find("div",attrs={"class":"info_view"}).find_all("span")) > 2:
                 writer = article_soup.find("article",attrs={"class":"box_view"}).find("div",attrs={"class":"info_view"}).find("span").get_text().strip()
             else:
-                writer = "해당 없음"
+                writer = ""
 
             # 작성일
             writed_date = article_soup.find("article",attrs={"class":"box_view"}).find("div").find("span",attrs={"class":"num_date"}).get_text().strip()
@@ -85,12 +85,10 @@ def crawledPages():
                 return 0
 
 def formattedDate(date):
-    print(date)
     year = date[0]
     month = date[1]
     day = date[2]
     time = date[3]+":00"
-
     return f'{year}-0{month}-0{day} {time}'
 
 crawledPages()
