@@ -12,9 +12,14 @@
     <div class="album py-5 bg-body-tertiary">
       <div class="container">
         <h4 style="font-weight: bold; color: #42b983">오늘의 헤드라인 뉴스</h4>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <Card v-for="article in articles" :key="article" :article="article"/>
+        <div>
+          <button @click="fetchArticles('네이버')">네이버</button>
+          <button @click="fetchArticles('다음')">다음</button>
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <Card v-for="article in articles" :key="article" :article="article"/>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -42,7 +47,19 @@
         });
       });
 
-      return { articles };
+      const fetchArticles = (site) => {
+        axios.post(`http://localhost:8080/lookup/v3/${site}`)
+            .then(response => {
+              articles.value = response.data.articles;
+              router.push("/");
+            })
+            .catch(error => {
+              console.error("[Error]", error);
+            });
+      };
+
+
+      return { articles, fetchArticles };
     },
 
   }
