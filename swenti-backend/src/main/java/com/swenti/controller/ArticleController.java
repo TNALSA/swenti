@@ -58,9 +58,10 @@ public class ArticleController {
 
     // 기사 상세보기
     @GetMapping("/lookup/details/{articleId}")
-    public ArticleResponseDto lookUpDetails(@PathVariable int articleId, Model model){
+    public ArticleResponseDto lookUpDetails(@PathVariable int articleId){
         System.out.println("기사 ID: "+articleId);
         Article article = articleService.LookupDetails(articleId);
+        System.out.println(article);
         return new ArticleResponseDto(article);
     }
 }

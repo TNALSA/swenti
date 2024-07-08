@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import java.util.Set;
 
-import java.sql.Blob;
 import java.time.LocalDateTime;
 
 
@@ -45,5 +45,8 @@ public class Article {
 
     @Column(nullable = false)
     private LocalDateTime writed_date;
+
+//    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<Comment> comments;
 
 }
