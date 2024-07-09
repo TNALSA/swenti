@@ -19,16 +19,16 @@ public class CommentController {
     private final CommentService commentService;
     private final List<Comment> comments;
     // 댓글 작성
-    @PostMapping("/comment/write")
-    void writeComment(@RequestBody CommentRequestDto body){
-        commentService.writeComment(body);
-    }
+//    @PostMapping("/comment/write")
+//    void writeComment(@RequestBody CommentRequestDto body){
+//        commentService.writeComment(body);
+//    }
 
     // 대댓글 작성
-    @PostMapping("/comment/write/sub")
-    void writeSubComment(@RequestBody CommentRequestDto body){
-        commentService.writeSubComment(body);
-    }
+//    @PostMapping("/comment/write/sub")
+//    void writeSubComment(@RequestBody CommentRequestDto body){
+//        commentService.writeSubComment(body);
+//    }
 
     // 댓글 수정
 

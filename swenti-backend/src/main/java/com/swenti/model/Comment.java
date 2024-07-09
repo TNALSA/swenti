@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Reference
     private int articleid;
 
     @Column(nullable = false)
@@ -23,7 +22,6 @@ public class Comment {
     @Column(nullable = false)
     private int commentlevel;
 
-    @Reference
     @Column(nullable = false)
     private String writer;
 
@@ -33,14 +31,11 @@ public class Comment {
     @Column(nullable = false)
     private String details;
 
-//    @ManyToOne
-//    @JoinColumn(name = "article_id")
-//    private Article article;
 
-    public Comment(int articleid, int commentid,String writer, String comment) {
-        this.articleid = articleid;
-        this.commentid = commentid;
-        this.details = comment;
-        this.writer = writer;
-    }
+//    public Comment(int articleid, int commentid,String writer, String comment) {
+//        this.articleid = articleid;
+//        this.commentid = commentid;
+//        this.details = comment;
+//        this.writer = writer;
+//    }
 }
