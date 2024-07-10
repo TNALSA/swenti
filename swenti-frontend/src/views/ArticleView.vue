@@ -10,28 +10,42 @@
       </div>
     </section>
     <section class="article-content">
-<!--      <img v-if="image['image1']" :src="image['image1']" alt="Article Image" height="225" width="100%"/>-->
       <p>{{ info.details }}</p>
     </section>
+    <section  v-if="$store.state.account.id" class="comment-input">
+      <textarea v-model="comment" placeholder="댓글을 입력해주세요" rows="4"></textarea>
+      <button @click="submitComment">입력</button>
+    </section>
+    <small v-else>로그인을 통해 댓글을 작성해보세요.</small>
+    <section>
+      <p v-for="comment in comments" :key="comment">
+        {{comment.details}}
+      </p>
+    </section>
   </div>
+
 </template>
+
 <script>
 import axios from "axios";
 import { useRouter } from "vue-router";
+import store from "@/scripts/store";
 
 export default {
   name: 'ArticleView',
   props: {
     articleId: {
-      type: [String, Number], // 타입을 String 또는 Number로 변경
+      type: [String, Number],
       required: true
     }
   },
   data() {
     return {
       cur_articleId: this.articleId,
-      info: {}, // 객체 형태로 초기화
-      formattedDate: '', // String 형태로 초기화
+      info: {},
+      comments: [], //받아올 댓글
+      formattedDate: '',
+      input: '' // 댓글 입력 값을 저장할 변수
     };
   },
   mounted() {
@@ -42,6 +56,7 @@ export default {
     axios.get(`http://localhost:8080/lookup/details/${cur_articleId}`).then(response => {
       console.log("응답받은 데이터: ", response.data);
       this.info = response.data.article;
+      this.comments = response.data.comments;
       this.formattedDate = this.formatDate(this.info.writed_date);
       router.push(`/article/${cur_articleId}`);
     }).catch(error => {
@@ -52,13 +67,30 @@ export default {
     formatDate(dateString) {
       const date = new Date(dateString);
       const year = date.getFullYear();
-      const month = date.getMonth() + 1; // 월은 0부터 시작하므로 +1 필요
+      const month = date.getMonth() + 1;
       const day = date.getDate();
       const hours = date.getHours();
       const minutes = date.getMinutes();
       const seconds = date.getSeconds();
 
       return `${year}년 ${month}월 ${day}일 ${hours}시 ${minutes}분 ${seconds}초`;
+    },
+    submitComment() {
+      if (this.comment.trim() === '') {
+        alert('댓글을 입력해주세요.');
+        return;
+      }
+      // 댓글 전송 로직 (예시)
+      axios.post(`http://localhost:8080/comment/write`, {
+        articleid: this.cur_articleId,
+        writer: store.state.account.id,
+        comment: this.comment
+      }).then(response => {
+        console.log("댓글이 성공적으로 등록되었습니다:", response.data);
+        this.comment = ''; // 입력창 초기화
+      }).catch(error => {
+        console.error("[Error]", error);
+      });
     }
   }
 }
@@ -96,5 +128,37 @@ export default {
 
 .article-content {
   margin-top: 20px;
+}
+
+.comment-input {
+  margin-top: 20px;
+  display: flex;
+
+}
+
+.comment-input textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: none;
+  margin-bottom: 10px;
+}
+
+.comment-input button {
+  display: block;
+  width: 20%;
+  padding: 10px;
+  background-color: #42b983;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.comment-input button:hover {
+  background-color: darkgreen;
 }
 </style>

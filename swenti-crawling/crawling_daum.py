@@ -1,9 +1,12 @@
 import datetime
 import json
+import time
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+
 import article_dao
 import requests
 
@@ -24,6 +27,9 @@ def createSoup(url):
 def crawledPages():
     browser = webdriver.Chrome()
     browser.get(url)
+    time.sleep(1)
+
+
     pages = len(browser.find_element(By.XPATH,"//*[@id='timeline']/div/div").find_elements(By.TAG_NAME,"a"))
 
     for page in range(1, pages+1):

@@ -52,5 +52,6 @@ public class ArticleController {
         Article article = articleService.LookupDetails(articleId);
         List<Comment> comments = commentService.lookupComments(articleId);
         return new ArticleResponseDto(article, comments);
+//        return new ArticleResponseDto(article);
     }
 }

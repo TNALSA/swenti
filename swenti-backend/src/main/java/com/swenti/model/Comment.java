@@ -8,34 +8,29 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 @Table(name = "comments")
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NonNull
     private int articleid;
 
+    @NonNull
     @Column(nullable = false)
     private int commentid;
 
     @Column(nullable = false)
     private int commentlevel;
 
+    @NonNull
     @Column(nullable = false)
     private String writer;
 
     @Column(nullable = false)
-    private LocalDateTime date;
+    private LocalDateTime date = LocalDateTime.now();
 
+    @NonNull
     @Column(nullable = false)
     private String details;
-
-
-//    public Comment(int articleid, int commentid,String writer, String comment) {
-//        this.articleid = articleid;
-//        this.commentid = commentid;
-//        this.details = comment;
-//        this.writer = writer;
-//    }
 }
