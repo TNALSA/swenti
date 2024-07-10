@@ -3,7 +3,7 @@ package com.swenti.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.Reference;
-
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
@@ -11,14 +11,18 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "comments")
-public class Comment {
-    @Id
+public class Comment implements Serializable {
+//    @Id
+//    @NonNull
+//    private int articleid;
+//
+//    @Id
+//    @NonNull
+//    @Column(nullable = false)
+//    private int commentid;
     @NonNull
-    private int articleid;
-
-    @NonNull
-    @Column(nullable = false)
-    private int commentid;
+    @EmbeddedId
+    private CommentsId id;
 
     @Column(nullable = false)
     private int commentlevel;

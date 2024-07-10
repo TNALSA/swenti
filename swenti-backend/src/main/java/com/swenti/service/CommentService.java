@@ -2,6 +2,7 @@ package com.swenti.service;
 
 import com.swenti.controller.dto.comment.CommentRequestDto;
 import com.swenti.model.Comment;
+import com.swenti.model.CommentsId;
 import com.swenti.repository.CommentJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,10 +28,11 @@ public class CommentService {
         System.out.println("기사 번호: "+body.articleid());
         System.out.println("작성자: "+body.writer());
         System.out.println("내용: "+body.comment());
-        Comment comment = new Comment(body.articleid(), commentid+1, body.writer(), body.comment());
+
+        CommentsId commentsId = new CommentsId(body.articleid(), commentid+1);
+        Comment comment = new Comment(commentsId, body.writer(), body.comment());
         commentJpaRepository.save(comment);
     }
-
 
     @Transactional(readOnly = true)
     public List<Comment> lookupComments(int articleId){
