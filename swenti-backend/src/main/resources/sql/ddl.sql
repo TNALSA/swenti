@@ -13,15 +13,24 @@ create table article (
 
 create table comments
 (
-    articleid    int                                not null
-        primary key,
+    articleid    int                                not null,
     commentid    int                                not null,
     commentlevel int      default 0                 not null,
     writer       varchar(64)                        not null,
     date         datetime default CURRENT_TIMESTAMP not null,
     details      varchar(1024)                      not null,
+    primary key (articleid, commentid),
     constraint comments_article_id_fk
         foreign key (articleid) references article (id),
     constraint comments_users_id_fk
         foreign key (writer) references users (id)
+);
+
+create table users(
+    id varchar(64),
+    password varchar(64),
+    birth datetime ,
+    name varchar(64),
+    phone varchar(64),
+    primary key (id)
 );

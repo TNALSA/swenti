@@ -12,16 +12,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "comments")
 public class Comment implements Serializable {
-//    @Id
-//    @NonNull
-//    private int articleid;
-//
-//    @Id
-//    @NonNull
-//    @Column(nullable = false)
-//    private int commentid;
-    @NonNull
+
     @EmbeddedId
+    @NonNull
     private CommentsId id;
 
     @Column(nullable = false)

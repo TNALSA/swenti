@@ -17,22 +17,25 @@
       <button @click="submitComment">입력</button>
     </section>
     <small v-else>로그인을 통해 댓글을 작성해보세요.</small>
+  </div>
+  <div class="article-container">
     <section>
-      <p v-for="comment in comments" :key="comment">
-        {{comment.details}}
-      </p>
+      <div class="comment-area">
+        <Comment v-for="comment in comments" :key="comment" :comment="comment"/>
+      </div>
     </section>
   </div>
-
 </template>
 
 <script>
 import axios from "axios";
 import { useRouter } from "vue-router";
 import store from "@/scripts/store";
+import Comment from "@/components/Comment.vue";
 
 export default {
   name: 'ArticleView',
+  components: {Comment},
   props: {
     articleId: {
       type: [String, Number],
@@ -161,4 +164,11 @@ export default {
 .comment-input button:hover {
   background-color: darkgreen;
 }
+
+.comment-area {
+  display: grid;
+  margin-bottom: 10px;
+}
+
+
 </style>
