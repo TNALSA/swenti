@@ -169,6 +169,4 @@ export default {
   display: grid;
   margin-bottom: 10px;
 }
-
-
 </style>

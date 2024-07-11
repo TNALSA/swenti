@@ -22,7 +22,6 @@ import axios from "axios";
 import {useRouter} from "vue-router";
 import store from "@/scripts/store";
 
-
 export default {
   name: 'LoginView',
   setup(){
@@ -38,10 +37,8 @@ export default {
       event.preventDefault();
       axios.post("http://localhost:8080/login/request", state.form).then(response => {
         res.value = response.data;
-
-        const isSucceed = res.value.isSuccess;
-        if(isSucceed){
-          store.commit('setAccount',state.form.id);
+        if(res.value.isSuccess){
+          store.dispatch('login', state.form.id);
           router.push("/")
         }else window.alert(res.value.comment);
       }).catch(error => {
