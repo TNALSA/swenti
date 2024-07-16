@@ -15,6 +15,7 @@
                 <p class="text-body-secondary" v-else>{{$store.state.account.id}}님 환영합니다.</p>
               </li>
             </ul>
+            <a @click="logout" style="color: white">Logout</a>
           </div>
         </div>
       </div>
@@ -39,9 +40,22 @@
   </header>
 </template>
 <script>
+  import {useRouter} from "vue-router";
+  import store from "@/scripts/store";
+
   export default {
-    name: 'Header'
+    name: 'Header',
+    setup(){
+      const router = useRouter();
+      const logout = () => {
+        store.dispatch('logout');
+        router.push("/");
+      }
+      return {logout}
+    }
   }
+
+
 </script>
 
 <style>

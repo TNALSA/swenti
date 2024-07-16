@@ -4,19 +4,18 @@ import com.swenti.controller.dto.user.UserRequestDto;
 import com.swenti.controller.dto.user.UserResponseDto;
 import com.swenti.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @SessionAttributes("user")
-public class LoginController {
+public class UserController {
 
     private final UserService userService;
 
     @PostMapping("/login/request")
-    public UserResponseDto loginRequest(@RequestBody UserRequestDto body, Model model){
+    public UserResponseDto loginRequest(@RequestBody UserRequestDto body){
         int result = Integer.parseInt(userService.checkUserPassword(body));
         System.out.println("Login result: " + result);
 
