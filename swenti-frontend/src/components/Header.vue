@@ -15,7 +15,7 @@
                 <p class="text-body-secondary" v-else>{{$store.state.account.id}}님 환영합니다.</p>
               </li>
             </ul>
-            <a @click="logout" style="color: white">Logout</a>
+            <a v-if="$store.state.account.id" @click="logout" style="color: white">Logout</a>
           </div>
         </div>
       </div>

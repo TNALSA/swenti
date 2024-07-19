@@ -25,10 +25,18 @@ def createSoup(url):
     return soup
 
 def crawledPages():
-    browser = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    # 웹 브라우저 안띄우기
+    options.add_argument("headless")
+
+    browser = webdriver.Chrome(options=options)
     browser.get(url)
     time.sleep(1)
 
+    # 우선 10초 대기 -> 해당 element가 출력되면 동작하도록 하는 옵션 (from selenium.webdriver.support import expected_conditions as EC -> 모듈 필요)
+    # search_result = WebDriverWait(browser, 10).until(
+    #     EC.element_to_be_clickable((By.CLASS_NAME, "select-options-wrap"))
+    # )
 
     pages = len(browser.find_element(By.XPATH,"//*[@id='timeline']/div/div").find_elements(By.TAG_NAME,"a"))
 

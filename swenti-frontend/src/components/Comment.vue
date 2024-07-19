@@ -4,6 +4,9 @@
       <div class="comment-date-writer">
         <small>{{comment.date}}</small>
         <small>{{comment.writer}}</small>
+<!--        유저 확인 후 수정/삭제 버튼 활성화 -->
+<!--        <small ><a>수정</a></small> -->
+<!--        <small>삭제</small> -->
       </div>
     </div>
 </template>

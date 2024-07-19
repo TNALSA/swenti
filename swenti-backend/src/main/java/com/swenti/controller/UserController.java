@@ -14,6 +14,15 @@ public class UserController {
 
     private final UserService userService;
 
+
+    /**
+     * 메서드 명: loginRequest()
+     * 기능: 사용자 로그인
+     * checkUserPassword()를 통해 먼저 사용자 아이디와 비밀번호에 대한 유효성 검증
+     * 이후 결과 값에 따라 로그인 성공 여부를 결정하고 결과 값을 클라이언트에게 반환
+     * @param body
+     * @return UserResponseDto(isSuccess, comment)
+     */
     @PostMapping("/login/request")
     public UserResponseDto loginRequest(@RequestBody UserRequestDto body){
         int result = Integer.parseInt(userService.checkUserPassword(body));

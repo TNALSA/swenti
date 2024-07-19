@@ -18,17 +18,23 @@ import java.util.*;
 public class CommentController {
     private final CommentService commentService;
     private final List<Comment> comments;
-    // 댓글 작성
+
+    /**
+     * 메서드 명: writeComment
+     * 기능: 댓글 작성
+     * RequestBody를 통해 전달 받은 댓글 내용을 DB에 저장한다.
+     * @param body
+     */
     @PostMapping("/comment/write")
     void writeComment(@RequestBody CommentRequestDto body){
         commentService.writeComment(body);
     }
 
-    // 대댓글 작성
-//    @PostMapping("/comment/write/sub")
-//    void writeSubComment(@RequestBody CommentRequestDto body){
-//        commentService.writeSubComment(body);
-//    }
+    // 대댓글 작성 => 추후 작성
+    //@PostMapping("/comment/write/sub")
+    //void writeSubComment(@RequestBody CommentRequestDto body){
+    //   commentService.writeSubComment(body);
+    //}
 
     // 댓글 수정
 

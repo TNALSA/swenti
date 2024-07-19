@@ -19,7 +19,6 @@
             <Card v-for="article in articles" :key="article" :article="article"/>
           </div>
         </div>
-
       </div>
     </div>
   </div>
