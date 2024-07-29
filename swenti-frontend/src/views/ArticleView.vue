@@ -13,7 +13,7 @@
       <p>{{ info.details }}</p>
     </section>
     <section  v-if="$store.state.account.id" class="comment-input">
-      <textarea v-model="comment" placeholder="댓글을 입력해주세요" rows="4"></textarea>
+      <textarea v-model="comment" placeholder="댓글을 입력 해 주세요."></textarea>
       <button @click="submitComment">입력</button>
     </section>
     <small v-else>로그인을 통해 댓글을 작성해보세요.</small>
@@ -90,10 +90,14 @@ export default {
         comment: this.comment
       }).then(response => {
         console.log("댓글이 성공적으로 등록되었습니다:", response.data);
-        this.comment = ''; // 입력창 초기화
+        this.comment = ''; //입력창 초기화
+        this.reRender(); //re-rendering 하기
       }).catch(error => {
         console.error("[Error]", error);
       });
+    },
+    reRender(){
+      window.location.reload();
     }
   }
 }
@@ -136,7 +140,6 @@ export default {
 .comment-input {
   margin-top: 20px;
   display: flex;
-
 }
 
 .comment-input textarea {

@@ -2,14 +2,12 @@
   <div class="col">
     <div class="card shadow-sm">
       <img v-if="localArticle.images['image1']" :src="localArticle.images['image1']" alt="Article Image" height="225" width="100%"/>
-      <img v-else src="https://img.atom.com/story_images/visual_images/14091507-01.jpg?class=show"/>
+      <img v-else src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" height="225"/>
       <div class="card-body">
         <div class="article-title">
           <router-link  :to="{ name: 'Article', params: { articleId: article.id}}" style="color: #42b983; font-weight: bold">
             <a>{{ article.title }}</a>
           </router-link>
-<!--          <a @click="$router.push({name:'Article', params: {article:localArticle}})">{{ article.title }}</a>-->
-<!--          <router-link :to= "{ name: 'Article', params: { id:  3 }}" style="color: #42b983; font-weight: bold">{{ article.title }}</router-link>-->
         </div>
         <div class="d-flex justify-content-between align-items-center">
           <small>{{ article.media }}</small>

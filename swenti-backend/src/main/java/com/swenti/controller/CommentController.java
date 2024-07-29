@@ -7,10 +7,8 @@ import com.swenti.service.CommentService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 @RestController
@@ -39,5 +37,8 @@ public class CommentController {
     // 댓글 수정
 
     // 댓글 삭제
-
+    @DeleteMapping("/comment/delete")
+    void deleteComment(@RequestParam("commentId") int commentId){
+        commentService.deleteComment(commentId);
+    }
 }

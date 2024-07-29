@@ -76,6 +76,7 @@ public class ArticleController {
     @GetMapping("/lookup/details/{articleId}")
     public ArticleResponseDto lookUpDetails(@PathVariable int articleId){
         Article article = articleService.LookupDetails(articleId);
+        articleService.LookupCount(articleId);
         List<Comment> comments = commentService.lookupComments(articleId);
         return new ArticleResponseDto(article, comments);
 //        return new ArticleResponseDto(article);

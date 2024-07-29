@@ -1,5 +1,5 @@
 create table article (
-    id int primary key auto_increment=1,
+    id int primary key , # auto_increment=1
     title varchar(512) not null,
     details varchar(8192) not null,
     media varchar(32) not null,
@@ -9,6 +9,15 @@ create table article (
     writed_date datetime not null,
     view int default 0 not null,
     site varchar(32) not null
+);
+
+create table users(
+                      id varchar(64),
+                      password varchar(64),
+                      birth datetime ,
+                      name varchar(64),
+                      phone varchar(64),
+                      primary key (id)
 );
 
 create table comments
@@ -26,11 +35,3 @@ create table comments
         foreign key (writer) references users (id)
 );
 
-create table users(
-    id varchar(64),
-    password varchar(64),
-    birth datetime ,
-    name varchar(64),
-    phone varchar(64),
-    primary key (id)
-);

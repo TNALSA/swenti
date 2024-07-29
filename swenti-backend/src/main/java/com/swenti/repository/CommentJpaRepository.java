@@ -19,4 +19,7 @@ public interface CommentJpaRepository extends JpaRepository<Comment, Integer> {
     @Query("SELECT c FROM Comment c WHERE c.id.aticleid = :articleId")
     List<Comment> lookupComments(@Param("articleId") int articleId);
 
+    @Query("DELETE FROM Comment c WHERE c.id.commentid = :commentId")
+    void deleteComment(@Param("commentId") int commentId);
+
 }

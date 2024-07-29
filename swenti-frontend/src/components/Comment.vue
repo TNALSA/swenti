@@ -4,13 +4,14 @@
       <div class="comment-date-writer">
         <small>{{comment.date}}</small>
         <small>{{comment.writer}}</small>
-<!--        유저 확인 후 수정/삭제 버튼 활성화 -->
-<!--        <small ><a>수정</a></small> -->
-<!--        <small>삭제</small> -->
+<!--        유저 확인 후 삭제 버튼 활성화 -->
+        <small v-if="$store.state.account.id == comment.writer" @click="deleteComment" ><a>삭제</a></small>
       </div>
     </div>
 </template>
 <script>
+  import axios from "axios";
+
   export default {
     name: 'Comment',
     props: {
@@ -18,6 +19,15 @@
         type: Object,
         required: true
       }
+    },
+    methods: {
+     deleteComment(commentId) {
+       axios.delete("http://localhost:8080/comment/delete",{
+         commentId: commentId
+       }).then(response => console.log("댓글이 삭제되었습니다:", response.data),
+           alert('댓글이 삭제되었습니다.')
+       );
+     }
     }
   }
 </script>

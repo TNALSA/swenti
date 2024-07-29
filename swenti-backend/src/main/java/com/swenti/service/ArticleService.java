@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,11 @@ public class ArticleService {
     @Transactional(readOnly = true)
     public Article LookupDetails(int articleId){
         return articleJpaRepository.LookupDetails(articleId);
+    }
+
+    @Transactional
+    public void LookupCount(int articleId) {
+        articleJpaRepository.LookupCount(articleId);
     }
 
 }

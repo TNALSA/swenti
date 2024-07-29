@@ -38,4 +38,8 @@ public class CommentService {
     public List<Comment> lookupComments(int articleId){
         return commentJpaRepository.lookupComments(articleId);
     }
+
+    public void deleteComment(int commentId){
+        commentJpaRepository.deleteComment(commentId);
+    }
 }
