@@ -13,10 +13,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "article")
+@Table(name = "articles")
 public class Article {
     @Id
-    //GeneratedValue(strategy = GenerationType.IDENTITY): PK에서만 사용할 수 있는 옵션
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

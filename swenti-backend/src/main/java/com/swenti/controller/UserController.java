@@ -1,19 +1,16 @@
 package com.swenti.controller;
 
-import com.swenti.controller.dto.user.UserRequestDto;
-import com.swenti.controller.dto.user.UserResponseDto;
+import com.swenti.controller.dto.user.request.SelectUserRequestDto;
+import com.swenti.controller.dto.user.response.SelectUserResponseDto;
 import com.swenti.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @SessionAttributes("user")
 public class UserController {
-
     private final UserService userService;
-
 
     /**
      * 메서드 명: loginRequest()
@@ -24,15 +21,14 @@ public class UserController {
      * @return UserResponseDto(isSuccess, comment)
      */
     @PostMapping("/login/request")
-    public UserResponseDto loginRequest(@RequestBody UserRequestDto body){
+    public SelectUserResponseDto loginRequest(@RequestBody SelectUserRequestDto body){
         int result = Integer.parseInt(userService.checkUserPassword(body));
         System.out.println("Login result: " + result);
-
         if (result > 0) {
-            return new UserResponseDto(true, "로그인 성공");
+            return new SelectUserResponseDto(true, "로그인 성공");
         } else {
             // 로그인 실패에 대한 예외 처리
-            return new UserResponseDto(false, "입력하신 정보가 일치하지 않습니다.");
+            return new SelectUserResponseDto(false, "입력하신 정보가 일치하지 않습니다.");
         }
     }
 }

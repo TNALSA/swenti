@@ -1,6 +1,6 @@
 package com.swenti.service;
 
-import com.swenti.controller.dto.user.UserRequestDto;
+import com.swenti.controller.dto.user.request.SelectUserRequestDto;
 import com.swenti.repository.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     private final UserJpaRepository userJpaRepository;
-    public String checkUserPassword(UserRequestDto requestDto){
-        String result = userJpaRepository.checkUserPassword(requestDto.id(), requestDto.password());
-        return result;
+    public String checkUserPassword(SelectUserRequestDto requestDto){
+        return userJpaRepository.checkUserPassword(requestDto.id(), requestDto.password());
     }
 }

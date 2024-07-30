@@ -26,10 +26,15 @@
          params : {
            commentId : commentId
          }
-       }).then(response => console.log("댓글이 삭제되었습니다:", response.data),
-           alert('댓글이 삭제되었습니다.')
-       );
-     }
+       }).then(response => {
+         console.log(response.data.comments);
+         alert(response.data.comments);
+         this.reRender();
+       });
+     },
+      reRender(){
+        window.location.reload();
+      }
     }
   }
 </script>

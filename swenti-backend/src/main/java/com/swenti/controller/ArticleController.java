@@ -1,8 +1,8 @@
 package com.swenti.controller;
 
 import java.util.List;
-import com.swenti.controller.dto.article.ArticleListResponseDto;
-import com.swenti.controller.dto.article.ArticleResponseDto;
+import com.swenti.controller.dto.article.response.SelectArticleListResponseDto;
+import com.swenti.controller.dto.article.response.SelectArticleResponseDto;
 import com.swenti.model.Article;
 import com.swenti.model.Comment;
 import com.swenti.service.ArticleService;
@@ -35,7 +35,6 @@ public class ArticleController {
         return articles;
     }
 
-
     /**
      * 메소드 명: lookUpArticlesV2()
      * 기능: lookUpArticlesV1()과 동일 하나, 기사 작성 일자가 now() 일자와 같은 기사 리스트만 불러옴
@@ -43,13 +42,13 @@ public class ArticleController {
      * @return ArticleListResponseDto(articles)
      */
     @GetMapping(value = "/lookup/v2", produces = MediaType.APPLICATION_JSON_VALUE+";charset=UTF-8")
-    public ArticleListResponseDto lookUpArticlesV2(){
+    public SelectArticleListResponseDto lookUpArticlesV2(){
             List<Article> articles = articleService.LookupArticleV2();
             for(Article a: articles){
                 System.out.println(a.getTitle());
                 System.out.println(a.getWrited_date());
             }
-            return new ArticleListResponseDto(articles);
+            return new SelectArticleListResponseDto(articles);
         }
 
     /**
@@ -59,26 +58,25 @@ public class ArticleController {
      * @return ArticleListResponseDto(articles)
      */
     @PostMapping("/lookup/v3/{site}")
-    public ArticleListResponseDto lookUpArticlesV3(@PathVariable String site){
+    public SelectArticleListResponseDto lookUpArticlesV3(@PathVariable String site){
         System.out.println("요청 사이트:" + site);
         List<Article> articles = articleService.LookupArticleV3(site);
-        return new ArticleListResponseDto(articles);
+        return new SelectArticleListResponseDto(articles);
     }
 
     /**
      * 메소드 명: lookUpDetails
-     * 기능: 특정 기사 선택 시 해당 기사에 대한 상세 내용, 작성자, 작성 일자 등의 정보를 불러옴
+     * 기능: 특정 기사 선택 시 해당 기사에 대한 상세 내용, 작성자, 작성 일자 등의 정보와 댓글 목록을 조회
      * 반환 형식은 JSON
      * @param articleId
      * @return ArticleResponseDto(article, comments)
      */
     // 기사 상세보기
     @GetMapping("/lookup/details/{articleId}")
-    public ArticleResponseDto lookUpDetails(@PathVariable int articleId){
+    public SelectArticleResponseDto lookUpDetails(@PathVariable int articleId){
         Article article = articleService.LookupDetails(articleId);
         articleService.LookupCount(articleId);
         List<Comment> comments = commentService.lookupComments(articleId);
-        return new ArticleResponseDto(article, comments);
-//        return new ArticleResponseDto(article);
+        return new SelectArticleResponseDto(article, comments);
     }
 }

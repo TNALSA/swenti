@@ -14,11 +14,6 @@ import java.time.LocalDateTime;
 @IdClass(CommentPK.class)
 @Table(name = "comments")
 public class Comment implements Serializable {
-
-//    @EmbeddedId
-//    @NonNull
-//    private CommentsId id;
-
     @Id
     @NonNull
     private int articleid;
