@@ -29,8 +29,9 @@ public class CommentService {
         System.out.println("작성자: "+body.writer());
         System.out.println("내용: "+body.comment());
 
-        CommentsId commentsId = new CommentsId(body.articleid(), commentid+1);
-        Comment comment = new Comment(commentsId, body.writer(), body.comment());
+//        CommentsId commentsId = new CommentsId(body.articleid(), commentid+1);
+//        Comment comment = new Comment(commentsId, body.writer(), body.comment());
+        Comment comment = new Comment(body.articleid(),commentid+1, body.writer(), body.comment());
         commentJpaRepository.save(comment);
     }
 

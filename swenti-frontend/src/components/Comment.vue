@@ -5,7 +5,7 @@
         <small>{{comment.date}}</small>
         <small>{{comment.writer}}</small>
 <!--        유저 확인 후 삭제 버튼 활성화 -->
-        <small v-if="$store.state.account.id == comment.writer" @click="deleteComment" ><a>삭제</a></small>
+        <small v-if="$store.state.account.id == comment.writer" @click="deleteComment(comment.commentid)" ><a>삭제</a></small>
       </div>
     </div>
 </template>
@@ -23,7 +23,9 @@
     methods: {
      deleteComment(commentId) {
        axios.delete("http://localhost:8080/comment/delete",{
-         commentId: commentId
+         params : {
+           commentId : commentId
+         }
        }).then(response => console.log("댓글이 삭제되었습니다:", response.data),
            alert('댓글이 삭제되었습니다.')
        );

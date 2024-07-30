@@ -9,13 +9,23 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Data
 @Entity
+@IdClass(CommentPK.class)
 @Table(name = "comments")
 public class Comment implements Serializable {
 
-    @EmbeddedId
+//    @EmbeddedId
+//    @NonNull
+//    private CommentsId id;
+
+    @Id
     @NonNull
-    private CommentsId id;
+    private int articleid;
+
+    @Id
+    @NonNull
+    private int commentid;
 
     @Column(nullable = false)
     private int commentlevel;

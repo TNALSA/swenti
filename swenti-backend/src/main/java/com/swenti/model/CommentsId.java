@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Embeddable
 public class CommentsId implements Serializable {
     @Column(name = "articleid")
-    private int aticleid;
+    private int articleid;
 
     @Column(name = "commentid")
     private int commentid;
