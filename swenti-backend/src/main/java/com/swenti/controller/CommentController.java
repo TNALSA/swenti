@@ -38,8 +38,8 @@ public class CommentController {
 
     // 댓글 삭제
     @DeleteMapping("/comment/delete")
-    void deleteComment(@RequestParam("commentId") Object commentId){
+    void deleteComment(@RequestParam("commentId") int commentId){
         System.out.println("commentId = "+commentId);
-//      commentService.deleteComment(commentId);
+        commentService.deleteComment(commentId);
     }
 }

@@ -40,6 +40,7 @@ public class CommentService {
         return commentJpaRepository.lookupComments(articleId);
     }
 
+    @Transactional
     public void deleteComment(int commentId){
         commentJpaRepository.deleteComment(commentId);
     }
