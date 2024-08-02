@@ -1,4 +1,4 @@
-create table article (
+create table articles (
     id int primary key , # auto_increment=1
     title varchar(512) not null,
     details varchar(8192) not null,
@@ -30,7 +30,7 @@ create table comments
     details      varchar(1024)                      not null,
     primary key (articleid, commentid),
     constraint comments_article_id_fk
-        foreign key (articleid) references article (id),
+        foreign key (articleid) references articles (id),
     constraint comments_users_id_fk
         foreign key (writer) references users (id)
 );

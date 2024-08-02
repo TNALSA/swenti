@@ -4,7 +4,7 @@ import error
 
 HOSTNAME = 'localhost'
 USER = 'root'
-PASSWORD = 'als1tn2!@'
+PASSWORD = '1234'
 DB = 'swenti'
 CHARSET = 'utf8'
 
