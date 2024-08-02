@@ -156,16 +156,17 @@ export default {
   display: block;
   width: 20%;
   padding: 10px;
-  background-color: #42b983;
+  background-color: #007AFF;
   color: white;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
+  height: 63px;
 }
 
 .comment-input button:hover {
-  background-color: darkgreen;
+  background-color: dodgerblue;
 }
 
 .comment-area {

@@ -5,7 +5,7 @@
       <img v-else src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" height="225"/>
       <div class="card-body">
         <div class="article-title">
-          <router-link  :to="{ name: 'Article', params: { articleId: article.id}}" style="color: #42b983; font-weight: bold">
+          <router-link  :to="{ name: 'Article', params: { articleId: article.id}}" style="color: #007AFF; font-weight: bold">
             <a>{{ article.title }}</a>
           </router-link>
         </div>

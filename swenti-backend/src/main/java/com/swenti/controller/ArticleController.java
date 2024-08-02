@@ -59,14 +59,15 @@ public class ArticleController {
      */
     @PostMapping("/lookup/v3/{site}")
     public SelectArticleListResponseDto lookUpArticlesV3(@PathVariable String site){
-        System.out.println("요청 사이트:" + site);
+        System.out.println("[요청 사이트]: " + site);
         List<Article> articles = articleService.LookupArticleV3(site);
         return new SelectArticleListResponseDto(articles);
     }
 
     /**
      * 메소드 명: lookUpDetails
-     * 기능: 특정 기사 선택 시 해당 기사에 대한 상세 내용, 작성자, 작성 일자 등의 정보와 댓글 목록을 조회
+     * 기능: 특정 기사 선택 시 해당 기사에 대한 상세 내용, 작성자, 작성 일자 등의 정보와 댓글 목록을 조회하고
+     *      해당 게시글의 조회수를 올리고 댓글들을 모두 조회함.
      * 반환 형식은 JSON
      * @param articleId
      * @return ArticleResponseDto(article, comments)

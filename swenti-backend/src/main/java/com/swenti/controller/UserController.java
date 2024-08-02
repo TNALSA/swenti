@@ -2,6 +2,7 @@ package com.swenti.controller;
 
 import com.swenti.controller.dto.user.request.SelectUserRequestDto;
 import com.swenti.controller.dto.user.response.SelectUserResponseDto;
+import com.swenti.message.ReturnMessage;
 import com.swenti.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +26,10 @@ public class UserController {
         int result = Integer.parseInt(userService.checkUserPassword(body));
         System.out.println("Login result: " + result);
         if (result > 0) {
-            return new SelectUserResponseDto(true, "로그인 성공");
+            return new SelectUserResponseDto(true, ReturnMessage.SUCCESS.getComment());
         } else {
             // 로그인 실패에 대한 예외 처리
-            return new SelectUserResponseDto(false, "입력하신 정보가 일치하지 않습니다.");
+            return new SelectUserResponseDto(false, ReturnMessage.NOT_MATCH.getComment());
         }
     }
 }

@@ -60,7 +60,7 @@
 
 <style>
 .navbar-custom {
-  background-color: #42b983; /* 사용자 정의 배경색 */
+  background-color: #007AFF; /* 사용자 정의 배경색 */
 }
 
 .navbar-custom .navbar-brand,

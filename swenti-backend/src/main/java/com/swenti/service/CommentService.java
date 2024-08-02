@@ -43,7 +43,8 @@ public class CommentService {
     }
 
     /**
-     *
+     * 메서드 명: lookupComments()
+     * 기능: 선택한 기사에 대한 댓글들을 모두 조회함.
      * @param articleId
      * @return List<Comment>
      */
@@ -52,6 +53,11 @@ public class CommentService {
         return commentJpaRepository.lookupComments(articleId);
     }
 
+    /**
+     * 메서드 명: deleteComment()
+     * 기능: CommentController와 이어지며, 댓글을 삭제
+     * @param commentId
+     */
     @Transactional
     public void deleteComment(int commentId){
         commentJpaRepository.deleteComment(commentId);

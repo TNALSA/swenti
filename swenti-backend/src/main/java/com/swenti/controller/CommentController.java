@@ -2,6 +2,7 @@ package com.swenti.controller;
 
 import com.swenti.controller.dto.comment.request.InsertCommentRequestDto;
 import com.swenti.controller.dto.comment.response.DeleteCommentResponseDto;
+import com.swenti.message.ReturnMessage;
 import com.swenti.model.Comment;
 import com.swenti.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,6 @@ import java.util.*;
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentService commentService;
-    private final List<Comment> comments;
 
     /**
      * 메서드 명: writeComment
@@ -26,16 +26,6 @@ public class CommentController {
         commentService.writeComment(body);
     }
 
-    // 대댓글 작성 => 추후 작성
-    //@PostMapping("/comment/write/sub")
-    //void writeSubComment(@RequestBody CommentRequestDto body){
-    //   commentService.writeSubComment(body);
-    //}
-
-    // 댓글 수정
-
-    // 댓글 삭제
-
     /**
      * 메서드 명: deleteComment()
      * 기능: 댓글 삭제
@@ -44,8 +34,8 @@ public class CommentController {
      */
     @DeleteMapping("/comment/delete")
     DeleteCommentResponseDto deleteComment(@RequestParam("commentId") int commentId){
-        System.out.println("commentId = " + commentId);
+        System.out.println("[삭제 댓글]: " + commentId);
         commentService.deleteComment(commentId);
-        return new DeleteCommentResponseDto("댓글이 삭제 되었습니다.");
+        return new DeleteCommentResponseDto(ReturnMessage.DEL_COMMENT.getComment());
     }
 }
