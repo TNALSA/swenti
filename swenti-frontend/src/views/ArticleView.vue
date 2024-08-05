@@ -4,15 +4,20 @@
       <div class="article-title">
         <h1>{{ info.title }}</h1>
       </div>
-      <div class="article-meta">
-        <small>{{ info.writer }}</small>
-        <small>{{ formattedDate }}</small>
+      <div class="article-spec">
+        <div class="article-meta">
+          <small>{{ info.writer }}</small>
+          <small>{{ formattedDate }}</small>
+        </div>
+        <div v-if="$store.state.account.id" class="article-bookmark" @click="bookMark">
+          <i :class="['fas', 'fa-bookmark', { 'active': isBookmarked }]"></i>
+        </div>
       </div>
     </section>
     <section class="article-content">
       <p>{{ info.details }}</p>
     </section>
-    <section  v-if="$store.state.account.id" class="comment-input">
+    <section v-if="$store.state.account.id" class="comment-input">
       <textarea v-model="comment" placeholder="댓글을 입력 해 주세요."></textarea>
       <button @click="submitComment">입력</button>
     </section>
@@ -35,7 +40,7 @@ import Comment from "@/components/Comment.vue";
 
 export default {
   name: 'ArticleView',
-  components: {Comment},
+  components: { Comment },
   props: {
     articleId: {
       type: [String, Number],
@@ -46,21 +51,30 @@ export default {
     return {
       cur_articleId: this.articleId,
       info: {},
-      comments: [], //받아올 댓글
+      comments: [],
       formattedDate: '',
-      input: '' // 댓글 입력 값을 저장할 변수
+      comment: '',
+      isBookmarked: false // 북마크 상태를 저장할 변수
     };
   },
   mounted() {
     const cur_articleId = this.cur_articleId;
     const router = useRouter();
     console.log("요청하신 글 번호: ", cur_articleId);
-
     axios.get(`http://localhost:8080/lookup/details/${cur_articleId}`).then(response => {
-      console.log("응답받은 데이터: ", response.data);
       this.info = response.data.article;
       this.comments = response.data.comments;
       this.formattedDate = this.formatDate(this.info.writed_date);
+
+      // 북마크 설정 여부 조회
+      if(store.state.account.id){
+        axios.get(`http://localhost:8080/isBookmark/${cur_articleId}/${store.state.account.id}`).then(response => {
+          this.isBookmarked = response.data;
+        }).catch(error => {
+          console.error("[Error]",error);
+        })
+      }
+
       router.push(`/article/${cur_articleId}`);
     }).catch(error => {
       console.error("[Error]", error);
@@ -83,21 +97,40 @@ export default {
         alert('댓글을 입력해주세요.');
         return;
       }
-      // 댓글 전송 로직 (예시)
       axios.post(`http://localhost:8080/comment/write`, {
         articleid: this.cur_articleId,
         writer: store.state.account.id,
         comment: this.comment
       }).then(response => {
         console.log("댓글이 성공적으로 등록되었습니다:", response.data);
-        this.comment = ''; //입력창 초기화
-        this.reRender(); //re-rendering 하기
+        this.comment = '';
+        this.reRender();
       }).catch(error => {
         console.error("[Error]", error);
       });
     },
-    reRender(){
+    reRender() {
       window.location.reload();
+    },
+    bookMark() {
+      if(!this.isBookmarked){
+        // 북마크 설정
+        axios.post('http://localhost:8080/setting/bookmark', {
+          articleid: this.cur_articleId,
+          userid: store.state.account.id
+        }).catch(error => {
+          console.error("[Error]", error);
+        });
+      }else{
+        console.log("[isBookmarked]: "+this.isBookmarked);
+        // 북마크 설정 해제
+        axios.delete(`http://localhost:8080/clear/bookmark/${this.cur_articleId}/${store.state.account.id}`).then(response =>{
+          console.log(response.data);
+        }).catch(error => {
+          console.error("[Error]",error)
+        })
+      }
+      this.reRender();
     }
   }
 }
@@ -135,6 +168,26 @@ export default {
 
 .article-content {
   margin-top: 20px;
+}
+
+.article-spec {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.article-bookmark {
+  color: #888;
+  margin-left: 10px;
+  cursor: pointer; /* 포인터 커서 추가 */
+}
+
+.article-bookmark i {
+  font-size: 20px; /* 아이콘 크기 */
+}
+
+.article-bookmark i.active {
+  color: yellow; /* 북마크 활성화 시 색상 */
 }
 
 .comment-input {

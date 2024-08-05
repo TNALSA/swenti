@@ -2,7 +2,7 @@
     <div class="comment-box" >
       {{ comment.details }}
       <div class="comment-date-writer">
-        <small>{{ formattedDate }}</small>
+        <small>{{ comment.date }}</small>
         <small>{{comment.writer}}</small>
 <!--        유저 확인 후 삭제 버튼 활성화 -->
         <small v-if="$store.state.account.id == comment.writer" @click="deleteComment(comment.commentid)" ><a>삭제</a></small>
@@ -56,7 +56,7 @@
 </script>
 <style>
   .comment-box {
-    border: 1px solid #42b983 ;
+    border: 1px solid #007AFF ;
     border-radius: 10px / 10px ;
     height: 90px;
     padding: 15px;

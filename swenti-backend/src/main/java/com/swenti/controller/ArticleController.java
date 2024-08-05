@@ -1,6 +1,7 @@
 package com.swenti.controller;
 
 import java.util.List;
+
 import com.swenti.controller.dto.article.response.SelectArticleListResponseDto;
 import com.swenti.controller.dto.article.response.SelectArticleResponseDto;
 import com.swenti.model.Article;
@@ -9,10 +10,7 @@ import com.swenti.service.ArticleService;
 import com.swenti.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -80,4 +78,6 @@ public class ArticleController {
         List<Comment> comments = commentService.lookupComments(articleId);
         return new SelectArticleResponseDto(article, comments);
     }
+
+
 }

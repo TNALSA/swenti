@@ -3,10 +3,8 @@ package com.swenti.service;
 import com.swenti.model.Article;
 import com.swenti.repository.ArticleJpaRepository;
 import java.util.List;
-import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,5 +36,4 @@ public class ArticleService {
     public void LookupCount(int articleId) {
         articleJpaRepository.LookupCount(articleId);
     }
-
 }

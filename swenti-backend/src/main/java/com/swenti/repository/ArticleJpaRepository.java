@@ -23,4 +23,5 @@ public interface ArticleJpaRepository extends JpaRepository<Article, Integer> {
     @Modifying
     @Query("UPDATE Article a SET a.view = a.view+1 WHERE a.id = :articleId")
     void LookupCount(@Param("articleId") int articleId);
+
 }

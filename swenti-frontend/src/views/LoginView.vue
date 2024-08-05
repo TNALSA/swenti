@@ -10,7 +10,7 @@
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="state.form.password">
         <label for="floatingPassword">Password</label>
       </div>
-      <button class="btn btn-primary w-100 py-2" style="background: #42b983 " type="submit">Sign in</button>
+      <button class="btn btn-primary w-100 py-2" style="background: #007AFF " type="submit">Sign in</button>
     </form>
   </main>
   </div>
