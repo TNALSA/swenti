@@ -28,6 +28,9 @@ def crawledPages():
     options = webdriver.ChromeOptions()
     # 웹 브라우저 안띄우기
     options.add_argument("headless")
+    # options.add_argument("--headless")
+    # options.add_argument("--no-sandbox")
+    # options.add_argument("--disable-dev-shm-usage")
 
     browser = webdriver.Chrome(options=options)
     browser.get(url)

@@ -35,3 +35,15 @@ create table comments
         foreign key (writer) references users (id)
 );
 
+create table bookmark
+(
+    id        int auto_increment
+        primary key,
+    userid    varchar(64) null,
+    articleid int         null,
+    constraint bookmark_article_id_fk
+        foreign key (articleid) references articles (id),
+    constraint bookmark_user_id_fk
+        foreign key (userid) references users (id)
+);
+
