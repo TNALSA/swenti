@@ -15,11 +15,10 @@
                 <p class="text-body-secondary" v-else>{{$store.state.account.id}}님 환영합니다.</p>
               </li>
             </ul>
-            <div v-if="$store.state.account.id" style="display: flex">
-              <a style="color: white">My page</a>
+            <div v-if="$store.state.account.id" style="display: flex; justify-content: space-between" >
+              <a style="color: white" href="/mypage">My page</a>
+              <a @click="logout" style="color: white">Logout</a>
             </div>
-            <a @click="logout" style="color: white">Logout</a>
-
           </div>
         </div>
       </div>

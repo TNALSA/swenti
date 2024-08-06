@@ -5,6 +5,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import LoginView from "@/views/LoginView.vue";
 import ArticleView from "@/views/ArticleView.vue";
 import HomeView from "@/views/HomeView.vue";
+import MyPageView from "@/views/MyPageView.vue"
 import store from "@/scripts/store";
 
 
@@ -21,7 +22,12 @@ const routes = [
         name: 'Article',
         component: ArticleView,
         props: true
+    },
+    {
+        path: '/mypage',
+        component: MyPageView
     }
+
 ]
 
 const router = createRouter({
