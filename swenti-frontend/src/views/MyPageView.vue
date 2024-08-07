@@ -1,14 +1,9 @@
 <template>
   <div class="mypage">
     <section class="py-5 text-center container">
-      <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
-          <h1 class="fw-light">내 정보</h1>
-          <p class="lead text-body-secondary">사용자 정보를 확인하고 수정하세요.</p>
-        </div>
-      </div>
+      <a href="/mypage" type="button">내 정보</a>
+      <a href="/bookmark" type="button">북마크</a>
     </section>
-
     <div class="container">
       <div class="card mb-4">
         <div class="card-header">
@@ -18,15 +13,16 @@
           <form @submit.prevent="updateUserInfo">
             <div class="mb-3">
               <label for="username" class="form-label">이름</label>
-              <input type="text" id="username" v-model="userInfo.username" class="form-control" required />
+              <p>{{ userInfo.username }}</p>
             </div>
             <div class="mb-3">
-              <label for="email" class="form-label">생년월일</label>
-              <input type="email" id="email" v-model="userInfo.email" class="form-control" required />
+              <label for="birth" class="form-label">생년월일</label>
+              <p>{{ userInfo.birth }}</p>
             </div>
             <div class="mb-3">
-              <label for="bio" class="form-label">번호</label>
-              <textarea id="bio" v-model="userInfo.bio" class="form-control" rows="3"></textarea>
+              <label for="contact" class="form-label">연락처</label>
+              <input id="contact" type="tel" placeholder="{{ userInfo.contact }}" v-model="userInfo.contact" class="form-control"
+                     pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" title="000-0000-0000의 형태로 입력해주세요."/>
             </div>
             <button type="submit" class="btn btn-primary">정보 수정</button>
           </form>
@@ -39,21 +35,30 @@
 <script>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import store from "@/scripts/store";
 
 export default {
   name: 'MyPage',
   setup() {
     const userInfo = ref({
       username: '',
-      email: '',
-      bio: ''
+      birth: '',
+      contact: ''
     });
+
+    const prevContact = ref('');
 
     onMounted(() => {
       // 사용자 정보를 가져오는 API 호출
-      axios.get('http://localhost:8080/user/info')
+      axios.get('http://localhost:8080/info',{ params: {userid : store.state.account.id}})
           .then(response => {
-            userInfo.value = response.data;
+            userInfo.value.username = response.data.user.name;
+            const date = new Date(response.data.user.birth);
+            // userInfo.value.birth = response.data.user.birth;
+            userInfo.value.birth = `${date.getFullYear()}년 ${date.getMonth()+1}월 ${date.getDate()}일`
+            userInfo.value.contact = response.data.user.phone;
+
+            prevContact.value = response.data.user.phone;
           })
           .catch(error => {
             console.error("[Error]", error);
@@ -61,26 +66,49 @@ export default {
     });
 
     const updateUserInfo = () => {
-      // 사용자 정보 수정 API 호출
-      axios.put('http://localhost:8080/user/update', userInfo.value)
-          .then(response => {
-            console.log(response.data);
-            alert('정보가 수정되었습니다.');
-          })
-          .catch(error => {
-            console.error("[Error]", error);
-          });
-    };
 
+      if(userInfo.value.contact === prevContact.value){
+        alert('변경된 정보가 없습니다.')
+        return;
+      }
+        // 사용자 정보 수정 API 호출
+        axios.put('http://localhost:8080/info/update',
+            {
+              userid: store.state.account.id,
+              contact: userInfo.value.contact
+            })
+            .then(response => {
+              console.log(response.data);
+              alert('정보가 수정 되었습니다.');
+              window.location.reload();
+            })
+            .catch(error => {
+              console.error("[Error]", error);
+            });
+    };
     return { userInfo, updateUserInfo };
-  },
+  }
 }
+
+
+
 </script>
 
 <style>
 .mypage {
   background-color: #f8f9fa; /* 배경색 */
-  padding: 20px; /* 패딩 */
+  padding: 50px; /* 패딩 */
+  display: flex;
+}
+
+.mypage section {
+  width: 6%;
+}
+
+.mypage a {
+  font-weight: bold;
+  border-radius: 5px;
+  border: #007AFF;
 }
 
 .card {
@@ -90,6 +118,16 @@ export default {
 .card-header {
   background-color: #007bff; /* 카드 헤더 배경색 */
   color: white; /* 카드 헤더 글자색 */
+}
+
+.card label {
+  font-weight: bold;
+  font-size: large;
+}
+
+.card p {
+  font-style: italic;
+  color: #888888;
 }
 
 .btn-primary {

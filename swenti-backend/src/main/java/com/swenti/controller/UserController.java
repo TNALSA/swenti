@@ -1,8 +1,11 @@
 package com.swenti.controller;
 
 import com.swenti.controller.dto.user.request.SelectUserRequestDto;
+import com.swenti.controller.dto.user.request.UpdateUserInfoRequestDto;
+import com.swenti.controller.dto.user.response.SelectUserInfoResponseDto;
 import com.swenti.controller.dto.user.response.SelectUserResponseDto;
 import com.swenti.message.ReturnMessage;
+import com.swenti.model.User;
 import com.swenti.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -32,4 +35,16 @@ public class UserController {
             return new SelectUserResponseDto(false, ReturnMessage.NOT_MATCH.getComment());
         }
     }
+
+    @GetMapping("/info")
+    public SelectUserInfoResponseDto getUserInfo(@RequestParam String userid){
+        User user = userService.getUserInfo(userid);
+        return new SelectUserInfoResponseDto(user);
+    }
+
+    @PutMapping("/info/update")
+    public void updateUserInfo(@RequestBody UpdateUserInfoRequestDto body){
+        userService.updateUserInfo(body);
+    }
+
 }
