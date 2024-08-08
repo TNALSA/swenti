@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 //@Repository
 public interface ArticleJpaRepository extends JpaRepository<Article, Integer> {
-    @Query("select a from Article a where date_format(a.writed_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')")
+    @Query("select a from Article a where date_format(a.writed_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') order by a.writed_date DESC ")
     List<Article> LookupArticle();
 
     @Query("select a from Article a where date_format(a.writed_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') and a.site = :site order by a.writed_date desc")

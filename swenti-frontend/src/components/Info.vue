@@ -1,9 +1,5 @@
 <template>
-  <div class="mypage">
-    <section class="py-5 text-center container">
-      <a href="/mypage" type="button">내 정보</a>
-      <a href="/bookmark" type="button">북마크</a>
-    </section>
+  <info>
     <div class="container">
       <div class="card mb-4">
         <div class="card-header">
@@ -29,16 +25,15 @@
         </div>
       </div>
     </div>
-  </div>
+  </info>
 </template>
-
 <script>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import {onMounted, ref} from "vue";
+import axios from "axios";
 import store from "@/scripts/store";
 
 export default {
-  name: 'MyPage',
+  name: 'Info',
   setup() {
     const userInfo = ref({
       username: '',
@@ -67,53 +62,30 @@ export default {
 
     const updateUserInfo = () => {
       if(userInfo.value.contact === prevContact.value){
-        alert("변경 사항이 없습니다.")
+        alert('변경된 정보가 없습니다.')
         return;
       }
-        // 사용자 정보 수정 API 호출
-        axios.put('http://localhost:8080/info/update',
-            {
-              userid: store.state.account.id,
-              contact: userInfo.value.contact
-            })
-            .then(response => {
-              console.log(response.data);
-              alert('정보가 수정 되었습니다.');
-            })
-            .catch(error => {
-              console.error("[Error]", error);
-            });
+      // 사용자 정보 수정 API 호출
+      axios.put('http://localhost:8080/info/update',
+          {
+            userid: store.state.account.id,
+            contact: userInfo.value.contact
+          })
+          .then(response => {
+            console.log(response.data);
+            alert('정보가 수정 되었습니다.');
+            window.location.reload();
+          })
+          .catch(error => {
+            console.error("[Error]", error);
+          });
     };
     return { userInfo, updateUserInfo };
-  },
-  data() {
-    return{
-      prevContact: ''
-    }
   }
 }
-
-
-
 </script>
 
 <style>
-.mypage {
-  background-color: #f8f9fa; /* 배경색 */
-  padding: 50px; /* 패딩 */
-  display: flex;
-}
-
-.mypage section {
-  width: 6%;
-}
-
-.mypage a {
-  font-weight: bold;
-  border-radius: 5px;
-  border: #007AFF;
-}
-
 .card {
   border: 1px solid #dee2e6; /* 카드 테두리 색상 */
 }
