@@ -61,14 +61,14 @@ export default {
     const cur_articleId = this.cur_articleId;
     const router = useRouter();
     console.log("요청하신 글 번호: ", cur_articleId);
-    axios.get(`http://localhost:8080/lookup/details/${cur_articleId}`).then(response => {
+    axios.get(`http://localhost:8080/article/lookup/details/${cur_articleId}`).then(response => {
       this.info = response.data.article;
       this.comments = response.data.comments;
       this.formattedDate = this.formatDate(this.info.writed_date);
 
       // 북마크 설정 여부 조회
       if(store.state.account.id){
-        axios.get(`http://localhost:8080/isBookmark/${cur_articleId}/${store.state.account.id}`).then(response => {
+        axios.get(`http://localhost:8080/bookmark/isBookmark/${cur_articleId}/${store.state.account.id}`).then(response => {
           this.isBookmarked = response.data;
         }).catch(error => {
           console.error("[Error]",error);
@@ -115,7 +115,7 @@ export default {
     bookMark() {
       if(!this.isBookmarked){
         // 북마크 설정
-        axios.post('http://localhost:8080/setting/bookmark', {
+        axios.post('http://localhost:8080/bookmark/set', {
           articleid: this.cur_articleId,
           userid: store.state.account.id
         }).catch(error => {
@@ -124,7 +124,7 @@ export default {
       }else{
         console.log("[isBookmarked]: "+this.isBookmarked);
         // 북마크 설정 해제
-        axios.delete(`http://localhost:8080/clear/bookmark/${this.cur_articleId}/${store.state.account.id}`).then(response =>{
+        axios.delete(`http://localhost:8080/bookmark/clear/${this.cur_articleId}/${store.state.account.id}`).then(response =>{
           console.log(response.data);
         }).catch(error => {
           console.error("[Error]",error)

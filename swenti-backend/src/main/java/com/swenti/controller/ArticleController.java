@@ -2,8 +2,8 @@ package com.swenti.controller;
 
 import java.util.List;
 
-import com.swenti.controller.dto.article.response.SelectArticleListResponseDto;
-import com.swenti.controller.dto.article.response.SelectArticleResponseDto;
+import com.swenti.controller.dto.article.response.GetArticleListDto;
+import com.swenti.controller.dto.article.response.GetArticleDto;
 import com.swenti.model.Article;
 import com.swenti.model.Comment;
 import com.swenti.service.ArticleService;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/article")
 public class ArticleController {
     private final ArticleService articleService;
     private final CommentService commentService;
@@ -40,13 +41,13 @@ public class ArticleController {
      * @return ArticleListResponseDto(articles)
      */
     @GetMapping(value = "/lookup/v2", produces = MediaType.APPLICATION_JSON_VALUE+";charset=UTF-8")
-    public SelectArticleListResponseDto lookUpArticlesV2(){
+    public GetArticleListDto lookUpArticlesV2(){
             List<Article> articles = articleService.LookupArticleV2();
             for(Article a: articles){
                 System.out.println(a.getTitle());
                 System.out.println(a.getWrited_date());
             }
-            return new SelectArticleListResponseDto(articles);
+            return new GetArticleListDto(articles);
         }
 
     /**
@@ -56,10 +57,10 @@ public class ArticleController {
      * @return ArticleListResponseDto(articles)
      */
     @PostMapping("/lookup/v3/{site}")
-    public SelectArticleListResponseDto lookUpArticlesV3(@PathVariable String site){
+    public GetArticleListDto lookUpArticlesV3(@PathVariable String site){
         System.out.println("[요청 사이트]: " + site);
         List<Article> articles = articleService.LookupArticleV3(site);
-        return new SelectArticleListResponseDto(articles);
+        return new GetArticleListDto(articles);
     }
 
     /**
@@ -72,11 +73,11 @@ public class ArticleController {
      */
     // 기사 상세보기
     @GetMapping("/lookup/details/{articleId}")
-    public SelectArticleResponseDto lookUpDetails(@PathVariable int articleId){
+    public GetArticleDto lookUpDetails(@PathVariable int articleId){
         Article article = articleService.LookupDetails(articleId);
         articleService.LookupCount(articleId);
         List<Comment> comments = commentService.lookupComments(articleId);
-        return new SelectArticleResponseDto(article, comments);
+        return new GetArticleDto(article, comments);
     }
 
 

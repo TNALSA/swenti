@@ -50,7 +50,7 @@ export default {
 
     onMounted(() => {
       // 사용자 정보를 가져오는 API 호출
-      axios.get('http://localhost:8080/info',{ params: {userid : store.state.account.id}})
+      axios.get('http://localhost:8080/user/info',{ params: {userid : store.state.account.id}})
           .then(response => {
             userInfo.value.username = response.data.user.name;
             const date = new Date(response.data.user.birth);
@@ -71,7 +71,7 @@ export default {
         return;
       }
         // 사용자 정보 수정 API 호출
-        axios.put('http://localhost:8080/info/update',
+        axios.put('http://localhost:8080/user/info/update',
             {
               userid: store.state.account.id,
               contact: userInfo.value.contact

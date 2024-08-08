@@ -35,7 +35,7 @@ export default {
     });
     const submit = (event) =>{
       event.preventDefault();
-      axios.post("http://localhost:8080/login/request", state.form).then(response => {
+      axios.post("http://localhost:8080/user/login", state.form).then(response => {
         res.value = response.data;
         if(res.value.isSuccess){
           store.dispatch('login', state.form.id);
@@ -46,7 +46,6 @@ export default {
         window.alert("Failed to submit login request. Please try again.");
       });
     }
-
     return {state, submit}
   }
 }

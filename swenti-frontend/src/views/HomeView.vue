@@ -41,7 +41,7 @@ export default {
     const router = useRouter();
 
     onMounted(() => {
-      axios.get("http://localhost:8080/lookup/v2").then(response => {
+      axios.get("http://localhost:8080/article/lookup/v2").then(response => {
         articles.value = response.data.articles;
         router.push("/")
       }).catch(error => {
@@ -50,7 +50,7 @@ export default {
     });
 
     const fetchArticles = (site) => {
-      axios.post(`http://localhost:8080/lookup/v3/${site}`)
+      axios.post(`http://localhost:8080/article/lookup/v3/${site}`)
           .then(response => {
             articles.value = response.data.articles;
             router.push("/");

@@ -1,6 +1,6 @@
 package com.swenti.service;
 
-import com.swenti.controller.dto.comment.request.InsertCommentRequestDto;
+import com.swenti.controller.dto.comment.request.SetCommentDto;
 import com.swenti.model.Comment;
 import com.swenti.repository.CommentJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class CommentService {
      *
      * @param body
      */
-    public void writeComment(InsertCommentRequestDto body){
+    public void writeComment(SetCommentDto body){
         int commentid = findCommentid(body.articleid());
         System.out.println("기사 번호: "+body.articleid());
         System.out.println("작성자: "+body.writer());

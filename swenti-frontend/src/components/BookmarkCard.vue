@@ -18,8 +18,15 @@
     </div>
 </template>
 <script>
+import store from "../scripts/store";
+
 export default {
   name: 'BookmarkCard',
+  computed: {
+    store() {
+      return store
+    }
+  },
   props: {
     bookmark:{
       type: Object,

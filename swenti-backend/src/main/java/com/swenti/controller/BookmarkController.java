@@ -1,17 +1,18 @@
 package com.swenti.controller;
 
-import com.swenti.controller.dto.bookmark.request.InsertBookmarkRequestDto;
+import com.swenti.controller.dto.bookmark.request.SetBookmarkDto;
 
-import com.swenti.controller.dto.bookmark.response.SelectBookmarkListResponseDto;
+import com.swenti.controller.dto.bookmark.response.GetBookmarkListDto;
 import com.swenti.model.Article;
 import com.swenti.service.BookmarkService;
-import lombok.Getter;
+
 import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("bookmark")
 public class BookmarkController {
     private final BookmarkService bookmarkService;
 
@@ -19,8 +20,8 @@ public class BookmarkController {
      * 북마크 설정
      * @param body
      */
-    @PostMapping("/setting/bookmark")
-    public void setBookmark(@RequestBody InsertBookmarkRequestDto body){
+    @PostMapping("/set")
+    public void setBookmark(@RequestBody SetBookmarkDto body){
         bookmarkService.setBookmark(body);
     }
 
@@ -29,7 +30,7 @@ public class BookmarkController {
      * @param articleid
      * @param userid
      */
-    @DeleteMapping("/clear/bookmark/{articleid}/{userid}")
+    @DeleteMapping("/clear/{articleid}/{userid}")
     public void clearBookmark(@PathVariable int articleid, @PathVariable String userid){
         bookmarkService.clearBookmark(articleid, userid);
     }
@@ -50,8 +51,8 @@ public class BookmarkController {
     }
 
     @GetMapping("lookup/bookmark")
-    public SelectBookmarkListResponseDto lookUpBookmark(@RequestParam String userid){
+    public GetBookmarkListDto lookUpBookmark(@RequestParam String userid){
         List<Article> bookmarks = bookmarkService.lookUpBookmark(userid);
-        return new SelectBookmarkListResponseDto(bookmarks);
+        return new GetBookmarkListDto(bookmarks);
     }
 }

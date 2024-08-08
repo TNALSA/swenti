@@ -35,8 +35,8 @@
     mounted() {
       if (typeof this.localArticle.images === 'string') {
         this.localArticle.images = JSON.parse(this.article.images);
-        this.formattedDate = this.formatDate(this.article.writed_date)
       }
+      this.formattedDate = this.formatDate(this.article.writed_date)
     },
     methods: {
       formatDate(dateString){

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @SessionAttributes("user")
+@RequestMapping("/user")
 public class UserController {
+
     private final UserService userService;
 
     /**
@@ -24,7 +26,7 @@ public class UserController {
      * @param body
      * @return UserResponseDto(isSuccess, comment)
      */
-    @PostMapping("/login/request")
+    @PostMapping("/login")
     public SelectUserResponseDto loginRequest(@RequestBody SelectUserRequestDto body){
         int result = Integer.parseInt(userService.checkUserPassword(body));
         System.out.println("Login result: " + result);
