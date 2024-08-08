@@ -10,14 +10,39 @@
           <h4 class="m-0">북마크 한 기사</h4>
         </div>
         <div class="card-body">
-
+          <bookmark-card v-for="bookmark in bookmarks" :key="bookmark" :bookmark="bookmark"/>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import {onMounted, ref} from "vue";
+// import {useRouter} from "vue-router";
+import axios from "axios";
+import store from "@/scripts/store";
+import BookmarkCard from "@/components/BookmarkCard.vue";
 
+export default {
+  name:'BookmarkView',
+  components: {BookmarkCard},
+  setup(){
+    const bookmarks = ref([]);
+    // const router = useRouter();
+    onMounted(() => {
+      axios.get("http://localhost:8080/lookup/bookmark", { params: {userid : store.state.account.id}}).
+      then(response => {
+        console.log("북마크:" + JSON.stringify(response.data.bookmarks));
+        bookmarks.value = response.data.bookmarks;
+      }).catch(error => {
+        console.error("[Error]",error)
+      });
+    });
+
+    return { bookmarks };
+  },
+
+}
 </script>
 <style>
 .bookmark {

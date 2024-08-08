@@ -135,7 +135,6 @@ export default {
   }
 }
 </script>
-
 <style scoped>
 .article-container {
   max-width: 800px;

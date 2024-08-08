@@ -2,11 +2,13 @@ package com.swenti.service;
 
 import com.swenti.controller.dto.bookmark.request.InsertBookmarkRequestDto;
 import com.swenti.controller.dto.bookmark.request.SelectBookmarkRequestDto;
+import com.swenti.model.Article;
 import com.swenti.model.Bookmark;
 import com.swenti.repository.BookmarkJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -35,5 +37,10 @@ public class BookmarkService {
     @Transactional
     public void clearBookmark(int articleid, String userid){
         bookmarkJpaRepository.clearBookmark(articleid, userid);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Article> lookUpBookmark(String userid){
+        return bookmarkJpaRepository.lookUpBookmark(userid);
     }
 }
