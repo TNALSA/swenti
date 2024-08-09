@@ -1,96 +1,42 @@
 <template>
   <div class="mypage">
     <section class="py-5 text-center container">
-      <a href="/mypage" type="button">내 정보</a>
-      <a href="/bookmark" type="button">북마크</a>
+      <button @click="showInfo" >내 정보</button>
+      <button @click="showBookmark">북마크</button>
     </section>
-    <div class="container">
-      <div class="card mb-4">
-        <div class="card-header">
-          <h4 class="m-0">사용자 정보</h4>
-        </div>
-        <div class="card-body">
-          <form @submit.prevent="updateUserInfo">
-            <div class="mb-3">
-              <label for="username" class="form-label">이름</label>
-              <p>{{ userInfo.username }}</p>
-            </div>
-            <div class="mb-3">
-              <label for="birth" class="form-label">생년월일</label>
-              <p>{{ userInfo.birth }}</p>
-            </div>
-            <div class="mb-3">
-              <label for="contact" class="form-label">연락처</label>
-              <input id="contact" type="tel" placeholder="{{ userInfo.contact }}" v-model="userInfo.contact" class="form-control"
-                     pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" title="000-0000-0000의 형태로 입력해주세요."/>
-            </div>
-            <button type="submit" class="btn btn-primary">정보 수정</button>
-          </form>
-        </div>
-      </div>
-    </div>
+    <info v-if="currentView === 'info'"/>
+    <bookmark v-if="currentView === 'bookmark'"/>
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
-import store from "@/scripts/store";
+import { ref } from 'vue';
+// import Info from "@/components/Info.vue";
+
+import Bookmark from "@/components/Bookmark.vue";
+import Info from "@/components/Info.vue";
 
 export default {
   name: 'MyPage',
+  components: {Info, Bookmark},
   setup() {
-    const userInfo = ref({
-      username: '',
-      birth: '',
-      contact: ''
-    });
+    const currentView = ref('info');
 
-    const prevContact = ref('');
-
-    onMounted(() => {
-      // 사용자 정보를 가져오는 API 호출
-      axios.get('http://localhost:8080/user/info',{ params: {userid : store.state.account.id}})
-          .then(response => {
-            userInfo.value.username = response.data.user.name;
-            const date = new Date(response.data.user.birth);
-            // userInfo.value.birth = response.data.user.birth;
-            userInfo.value.birth = `${date.getFullYear()}년 ${date.getMonth()+1}월 ${date.getDate()}일`
-            userInfo.value.contact = response.data.user.phone;
-
-            prevContact.value = response.data.user.phone;
-          })
-          .catch(error => {
-            console.error("[Error]", error);
-          });
-    });
-
-    const updateUserInfo = () => {
-      if(userInfo.value.contact === prevContact.value){
-        alert("변경 사항이 없습니다.")
-        return;
-      }
-        // 사용자 정보 수정 API 호출
-        axios.put('http://localhost:8080/user/info/update',
-            {
-              userid: store.state.account.id,
-              contact: userInfo.value.contact
-            })
-            .then(response => {
-              console.log(response.data);
-              alert('정보가 수정 되었습니다.');
-            })
-            .catch(error => {
-              console.error("[Error]", error);
-            });
+    const showInfo = () => {
+      currentView.value = 'info';
     };
-    return { userInfo, updateUserInfo };
+
+    const showBookmark = () => {
+      currentView.value = 'bookmark';
+    };
+
+    return { currentView, showInfo, showBookmark };
   },
   data() {
     return{
       prevContact: ''
     }
-  }
+  },
 }
 </script>
 

@@ -50,7 +50,7 @@ public class BookmarkController {
        return false;
     }
 
-    @GetMapping("lookup/bookmark")
+    @GetMapping("/lookup")
     public GetBookmarkListDto lookUpBookmark(@RequestParam String userid){
         List<Article> bookmarks = bookmarkService.lookUpBookmark(userid);
         return new GetBookmarkListDto(bookmarks);

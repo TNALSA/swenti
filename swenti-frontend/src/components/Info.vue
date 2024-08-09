@@ -1,5 +1,4 @@
 <template>
-  <info>
     <div class="container">
       <div class="card mb-4">
         <div class="card-header">
@@ -13,11 +12,11 @@
             </div>
             <div class="mb-3">
               <label for="birth" class="form-label">생년월일</label>
-              <p>{{ userInfo.birth }}</p>
+              <p>{{userInfo.birth}}</p>
             </div>
             <div class="mb-3">
               <label for="contact" class="form-label">연락처</label>
-              <input id="contact" type="tel" placeholder="{{ userInfo.contact }}" v-model="userInfo.contact" class="form-control"
+              <input id="contact" type="tel" placeholder="{{userInfo.contact}}" v-model="userInfo.contact" class="form-control"
                      pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" title="000-0000-0000의 형태로 입력해주세요."/>
             </div>
             <button type="submit" class="btn btn-primary">정보 수정</button>
@@ -25,7 +24,6 @@
         </div>
       </div>
     </div>
-  </info>
 </template>
 <script>
 import {onMounted, ref} from "vue";
@@ -45,7 +43,7 @@ export default {
 
     onMounted(() => {
       // 사용자 정보를 가져오는 API 호출
-      axios.get('http://localhost:8080/info',{ params: {userid : store.state.account.id}})
+      axios.get('http://localhost:8080/user/info',{ params: {userid : store.state.account.id}})
           .then(response => {
             userInfo.value.username = response.data.user.name;
             const date = new Date(response.data.user.birth);
@@ -66,7 +64,7 @@ export default {
         return;
       }
       // 사용자 정보 수정 API 호출
-      axios.put('http://localhost:8080/info/update',
+      axios.put('http://localhost:8080/user/info/update',
           {
             userid: store.state.account.id,
             contact: userInfo.value.contact
@@ -81,6 +79,12 @@ export default {
           });
     };
     return { userInfo, updateUserInfo };
+  },
+
+  data() {
+    return{
+      prevContact: ''
+    }
   }
 }
 </script>
