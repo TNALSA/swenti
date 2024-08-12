@@ -30,7 +30,8 @@ SWENTI는 Naver, Daum 웹사이트의 IT 관련 뉴스를 크롤링하여 제공
 * 각각의 Container는 Swenti-NET이라는 `Docker` 네트워크를 공유하여 컨테이너 간 접속을 원활하게 할 수 있도록 하였습니다.
 
 ### _ERD_
-<img src="https://github.com/user-attachments/assets/5f9667d5-e277-4443-9085-bfa5bbcada71"/>
+<img src="https://github.com/user-attachments/assets/d3b00691-f445-4726-a31c-9db2998ddef5"/>
+
 
 ### _기능_
 #### 로그인
